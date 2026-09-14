@@ -1,70 +1,75 @@
 <!DOCTYPE html>
-
-<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Product Inventory Dashboard</title> <link rel="stylesheet" href="css/style.css"> </head>
-<link rel="stylesheet" href="css/styles.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
+    <main class="container">
+        <header class="hero">
+            <p class="eyebrow">ITP10 | EVENT-DRIVEN PROGRAMMING</p>
+            <h1>Student Performance Dashboard</h1>
+            <p class="subtitle">Interactive dashboard for searching, filtering, and analyzing student performance.</p>
+        </header>
 
-<main class="container">
+        <section class="panel controls-panel">
+            <div class="control-group">
+                <label for="searchInput">Search Student</label>
+                <input id="searchInput" type="text" placeholder="Enter student name">
+            </div>
 
-    <h1>Product Inventory Dashboard</h1>
+            <div class="control-group">
+                <label for="blockFilter">Block</label>
+                <select id="blockFilter">
+                    <option value="All">All</option>
+                    <option value="31-ITE-01">31-ITE-01</option>
+                    <option value="31-ITE-02">31-ITE-02</option>
+                    <option value="31-ITE-03">31-ITE-03</option>
+                </select>
+            </div>
 
-    <section class="controls">
+            <div class="control-group">
+                <label for="statusFilter">Academic Status</label>
+                <select id="statusFilter">
+                    <option value="All">All</option>
+                    <option value="Excellent">Excellent</option>
+                    <option value="Passed">Passed</option>
+                    <option value="Needs Improvement">Needs Improvement</option>
+                    <option value="Failed">Failed</option>
+                </select>
+            </div>
 
-        <div class="control-group">
-            <label for="searchInput">Search Product</label>
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Enter product name"
-            >
-        </div>
+            <div class="button-group">
+                <button id="applyBtn" type="button">Apply Filters</button>
+                <button id="resetBtn" type="button" class="secondary">Reset</button>
+            </div>
+        </section>
 
-        <div class="control-group">
-            <label for="categoryFilter">Category</label>
-            <select id="categoryFilter">
-                <option value="All">All</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Displays">Displays</option>
-                <option value="Storage">Storage</option>
-                <option value="Components">Components</option>
-            </select>
-        </div>
+        <section class="summary-grid" aria-label="Class summary">
+            <article class="summary-card">
+                <span>Class Average</span>
+                <strong id="classAverage">0.00</strong>
+            </article>
+            <article class="summary-card">
+                <span>Passing Students</span>
+                <strong id="passingCount">0</strong>
+            </article>
+            <article class="summary-card">
+                <span>Displayed Students</span>
+                <strong id="displayedCount">0</strong>
+            </article>
+            <article class="summary-card">
+                <span>Top Student</span>
+                <strong id="topStudent">None</strong>
+            </article>
+        </section>
 
-        <button id="searchBtn" type="button">
-            Search Button
-        </button>
+        <div id="messageArea" class="message-area" aria-live="polite"></div>
+        <section id="studentList" class="student-grid" aria-label="Student records"></section>
+    </main>
 
-        <button id="resetBtn" type="button">
-            Reset Button
-        </button>
-
-    </section>
-
-    <section class="summary">
-
-        <div class="summary-card">
-            <h2>Total Inventory Value</h2>
-            <p id="totalInventoryValue">₱0</p>
-        </div>
-
-        <div class="summary-card">
-            <h2>Low-Stock Products</h2>
-            <p id="lowStockCount">0</p>
-        </div>
-
-        <div class="summary-card">
-            <h2>Out-of-Stock Products</h2>
-            <p id="outOfStockCount">0</p>
-        </div>
-
-    </section>
-
-    <p id="noResultsMessage">No products found</p>
-
-    <section id="productList" class="product-list"></section>
-
-</main>
-
-<script type="module" src="js/main.js"></script>
-
-</body> </html>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,84 +1,64 @@
-import { products } from "./products.js";
+// Main/controller module: connects data, utilities, display, and UI events.
 
+import { students } from "./students.js";
 import {
-searchProducts,
-filterProductsByCategory,
-calculateTotalInventoryValue,
-countLowStockProducts,
-countOutOfStockProducts
-} from "./inventoryUtils.js";
-
+    searchStudents,
+    filterStudentsByBlock,
+    filterStudentsByStatus
+} from "./gradeUtils.js";
 import {
-displayProducts,
-displayTotalInventoryValue,
-displayLowStockCount,
-displayOutOfStockCount
+    displayStudents,
+    displaySummary,
+    displayMessage
 } from "./display.js";
 
-const searchInput =
-document.getElementById("searchInput");
+const searchInput = document.getElementById("searchInput");
+const blockFilter = document.getElementById("blockFilter");
+const statusFilter = document.getElementById("statusFilter");
+const applyBtn = document.getElementById("applyBtn");
+const resetBtn = document.getElementById("resetBtn");
 
-const categoryFilter =
-document.getElementById("categoryFilter");
-
-const searchBtn =
-document.getElementById("searchBtn");
-
-const resetBtn =
-document.getElementById("resetBtn");
-
-function applyFilters() {
-
-const query = searchInput.value;
-const category = categoryFilter.value;
-
-let results = searchProducts(products, query);
-
-results = filterProductsByCategory(
-    results,
-    category
-);
-
-displayProducts(results);
-
+function getFilteredStudents() {
+    let result = searchStudents(students, searchInput.value);
+    result = filterStudentsByBlock(result, blockFilter.value);
+    result = filterStudentsByStatus(result, statusFilter.value);
+    return result;
 }
 
-function displayInitialData() {
+function updateDashboard() {
+    const result = getFilteredStudents();
 
-displayProducts(products);
+    displayStudents(result);
+    displaySummary(result);
 
-const totalValue =
-    calculateTotalInventoryValue(products);
-
-const lowStock =
-    countLowStockProducts(products);
-
-const outOfStock =
-    countOutOfStockProducts(products);
-
-displayTotalInventoryValue(totalValue);
-
-displayLowStockCount(lowStock);
-
-displayOutOfStockCount(outOfStock);
-
+    if (result.length === 0) {
+        displayMessage("No students found");
+    } else {
+        displayMessage("");
+    }
 }
 
-searchBtn.addEventListener("click", () => {
-applyFilters();
-});
+function resetDashboard() {
+    searchInput.value = "";
+    blockFilter.value = "All";
+    statusFilter.value = "All";
 
-categoryFilter.addEventListener("change", () => {
-applyFilters();
-});
+    displayStudents(students);
+    displaySummary(students);
+    displayMessage("");
+}
 
-resetBtn.addEventListener("click", () => {
+applyBtn.addEventListener("click", updateDashboard);
 
-searchInput.value = "";
-categoryFilter.value = "All";
+resetBtn.addEventListener("click", resetDashboard);
 
-displayProducts(products);
+searchInput.addEventListener("input", updateDashboard);
 
-});
+blockFilter.addEventListener("change", updateDashboard);
 
-displayInitialData();
+statusFilter.addEventListener("change", updateDashboard);
+
+// Initial page load.
+displayStudents(students);
+displaySummary(students);
+displayMessage("");
